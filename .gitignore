@@ -23,6 +23,7 @@ hs_err_pid*
 .idea/
 out/
 *.iml
+*.xml
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
