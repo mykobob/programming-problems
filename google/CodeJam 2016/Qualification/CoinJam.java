@@ -12,9 +12,8 @@ import java.util.*;
 public class CoinJam {
 
     public static void main(String... bob) throws Exception {
-//        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("CoinJam.out")));
-         BufferedReader in = new BufferedReader(new FileReader("C-small-attempt0.in"));
+        BufferedReader in = new BufferedReader(new FileReader("C-small-attempt0.in"));
         StringTokenizer testCases = new StringTokenizer(in.readLine());
         int T = i(testCases.nextToken());
         for (int i = 0; i < T; i++) {
@@ -28,7 +27,6 @@ public class CoinJam {
                 if (valid(num)) {
                     List<BigInteger> factors = factors(num);
                     StringBuilder ans = new StringBuilder();
-//                    System.out.println(num);
                     ans.append(Long.toBinaryString(num));
                     for (int k = 0; k < factors.size(); k++) {
                         ans.append(" ");
@@ -54,7 +52,6 @@ public class CoinJam {
         String binary = Long.toBinaryString(num);
         for (int base = 2; base <= 10; base++) {
             BigInteger numBase = new BigInteger(binary, base);
-//            System.out.println(binary + " " + numBase + " " + numBase.isProbablePrime(10));
             if (numBase.isProbablePrime(10)) {
                 return false;
             }

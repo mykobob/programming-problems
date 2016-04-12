@@ -4,7 +4,6 @@ import java.util.StringTokenizer;
 
 public class CountingSheep {
     public static void main(String... bob) throws Exception {
-//        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
         PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter("CountingSheep.out")));
          BufferedReader in = new BufferedReader(new FileReader("A-large.in"));
         StringTokenizer testCases = new StringTokenizer(in.readLine());
