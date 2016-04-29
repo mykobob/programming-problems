@@ -39,3 +39,6 @@ fabric.properties
 
 # competitive programming
 *.in
+*.out
+template.c++
+bin/
