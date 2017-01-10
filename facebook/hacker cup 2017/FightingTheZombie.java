@@ -17,11 +17,8 @@ public class FightingTheZombie {
             double bestChoice = 0;
             for (Distribution spell : spells) {
                 double curProbability = spell.calcProbability(damageNeeded);
-//                System.out.println("curProbability = " + curProbability);
-//                spell.printProbabilities();
                 bestChoice = Math.max(bestChoice, curProbability);
             }
-//            System.out.printf("%.6f%n", bestChoice);
             out.caseAns(i + 1, String.format("%.6f", bestChoice));
         }
 
