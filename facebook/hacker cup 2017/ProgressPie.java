@@ -32,9 +32,6 @@ public class ProgressPie {
         // law of cosines
         double angle = Math.acos((a * a + b * b - c * c) / (2 * a * b));
         double degrees = angle * 180 / Math.PI;
-        if (angle == Double.NaN) {
-            System.out.println(x + " " + y);
-        }
 
         if (x <= 50) {
             if (x == 50) {
