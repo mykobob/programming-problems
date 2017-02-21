@@ -16,4 +16,8 @@ public class Person {
     public List<Integer> canMakeDays(AllTimes schedule) {
         return schedule.canMakeDays(times);
     }
+
+    public String getName() {
+        return name;
+    }
 }

@@ -2,8 +2,6 @@ import java.io.*;
 import java.util.*;
 import java.util.stream.Collectors;
 
-import static com.sun.tools.doclint.Entity.times;
-
 public class Schedule {
 
     private static final int NUM_DAYS = 5;
@@ -33,6 +31,7 @@ public class Schedule {
         return allTimes.stream()
                 .filter(times1 -> times1.valid(people))
                 .filter(AllTimes::sameTTH)
+                .sorted()
                 .collect(Collectors.toList());
     }
 
@@ -75,6 +74,9 @@ public class Schedule {
         Schedule dt = new Schedule(60);
         System.out.println("finished recursion");
         List<AllTimes> times = dt.findAllTimes(people);
-        times.forEach(System.out::println);
+        for (AllTimes time : times) {
+            System.out.println(time.who(people));
+            System.out.println();
+        }
     }
 }

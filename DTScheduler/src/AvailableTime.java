@@ -12,10 +12,15 @@ public class AvailableTime {
         times = new ArrayList<>();
     }
 
-    public AvailableTime(int hour, int minute, int endHour, int endMinute) {
+    public AvailableTime(Range time) {
         this();
-        times.add(new Range(hour, minute, endHour, endMinute));
+        times.add(time);
     }
+
+    public AvailableTime(int hour, int minute, int endHour, int endMinute) {
+        this(new Range(hour, minute, endHour, endMinute));
+    }
+
 
 
     // This checks to see if thisTimes intersects with the times in other
@@ -30,7 +35,12 @@ public class AvailableTime {
         return false;
     }
 
+    private static String UNAVAILABLE = "can't make it";
+
     public static AvailableTime parse(String str) {
+        if (UNAVAILABLE.equals(str)) {
+            return new AvailableTime();
+        }
         // Input is available times for one day
         // {hh}{a|p}:{mm}-{hh}{a|p}:{mm},...
         AvailableTime availableTime = new AvailableTime();
@@ -56,6 +66,29 @@ public class AvailableTime {
         return availableTime;
     }
 
+    private Range firstOfTheDay() {
+        return times.get(0);
+    }
+
+    private Range lastOfTheDay() {
+        return times.get(times.size() - 1);
+    }
+
+    public boolean canMerge(AvailableTime other) {
+        return lastOfTheDay().rightBefore(other.firstOfTheDay());
+    }
+
+    /*
+     * Precondition: Each AvailableTime object must only have one time slot in them
+     */
+    public AvailableTime merge(AvailableTime other) {
+        return new AvailableTime(lastOfTheDay().merge(other.firstOfTheDay()));
+    }
+
+    public void combine(AvailableTime other) {
+        this.times.addAll(other.times);
+    }
+
     private void addNewTime(Range range) {
         times.add(range);
     }
@@ -63,8 +96,11 @@ public class AvailableTime {
     @Override
     public String toString() {
         StringBuilder out = new StringBuilder();
-        for (Range time : times) {
-            out.append(time);
+        for (int i = 0; i < times.size(); i++) {
+            out.append(times.get(i));
+            if (i != times.size() - 1) {
+                out.append(",");
+            }
         }
         return out.toString();
     }
@@ -90,16 +126,32 @@ public class AvailableTime {
             this.endMinute = endMinute;
         }
 
+        public int convertStartTime() {
+            return startHour * 60 + startMinute;
+        }
+
+        public int convertEndTime() {
+            return endHour * 60 + endMinute;
+        }
+
+        public boolean rightBefore(Range other) {
+            return endHour == other.startHour && endMinute == other.startMinute;
+        }
+
+        public Range merge(Range other) {
+            return new Range(startHour, startMinute, other.endHour, other.endMinute);
+        }
+
         public boolean contains(Range other) {
-            if (startHour <= other.startHour && other.startHour <= endHour) {
-                return true;
-            }
-            return false;
+            int thisStart = convertStartTime(), thisEnd = convertEndTime();
+            int otherStart = other.convertStartTime();
+
+            return thisStart <= otherStart && otherStart <= thisEnd && otherStart + 60 <= thisEnd;
         }
 
         @Override
         public String toString() {
-            return String.format("%02d:%02d - %02d%02d", startHour, startMinute, endHour, endMinute);
+            return String.format("%02d:%02d-%02d:%02d", startHour, startMinute, endHour, endMinute);
         }
 
         @Override
