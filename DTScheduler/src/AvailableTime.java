@@ -66,6 +66,29 @@ public class AvailableTime {
         return availableTime;
     }
 
+    public static AvailableTime parseMilitary(String str) {
+        if (UNAVAILABLE.equals(str)) {
+            return new AvailableTime();
+        }
+        AvailableTime availableTime = new AvailableTime();
+        String[] times = str.split(",");
+
+        for (String time : times) {
+            String[] parts = time.split("-");
+
+            String[] startData = parts[0].split(":");
+            int startHour = Integer.parseInt(startData[0]);
+            int startMinute = Integer.parseInt(startData[1]);
+
+            String[] endData = parts[1].split(":");
+            int endHour = Integer.parseInt(endData[0]);
+            int endMinute = Integer.parseInt(endData[1]);
+
+            availableTime.addNewTime(new Range(startHour, startMinute, endHour, endMinute));
+        }
+        return availableTime;
+    }
+
     private Range firstOfTheDay() {
         return times.get(0);
     }

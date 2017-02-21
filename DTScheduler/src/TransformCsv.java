@@ -104,7 +104,7 @@ public class TransformCsv {
         private StringTokenizer str;
 
         public FAST() throws Exception {
-             in = new BufferedReader(new FileReader("schedules.in"));
+             in = new BufferedReader(new FileReader("schedules.csv"));
         }
 
         private String next() {

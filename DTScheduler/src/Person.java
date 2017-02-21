@@ -18,6 +18,6 @@ public class Person {
     }
 
     public String getName() {
-        return name;
+        return name.split(" ")[0];
     }
 }

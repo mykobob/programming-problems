@@ -66,7 +66,7 @@ public class Schedule {
             String name = in.nextLine();
             AvailableTime[] times = new AvailableTime[NUM_DAYS];
             for (int i = 0; i < NUM_DAYS; i++) {
-                times[i] = AvailableTime.parse(in.nextLine());
+                times[i] = AvailableTime.parseMilitary(in.nextLine());
             }
             people.add(new Person(name, new AllTimes(times)));
         }
