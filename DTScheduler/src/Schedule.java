@@ -30,7 +30,6 @@ public class Schedule {
     public List<AllTimes> findAllTimes(List<Person> people) {
         return allTimes.stream()
                 .filter(times1 -> times1.valid(people))
-                .filter(AllTimes::sameTTH)
                 .sorted()
                 .collect(Collectors.toList());
     }
